@@ -6,6 +6,16 @@ A tiny Network mapper for go learning purposes and fun!
 - The project is aimed for golang learning purposes
 - My initial idea is to support a couple of host discovery/port scanning techniques (See [TODO](#TODO))
 
+## Tests
+
+```bash
+make test
+go test ./...
+?       github.io/pabloxio/gnmap        [no test files]
+?       github.io/pabloxio/gnmap/cmd    [no test files]
+ok      github.io/pabloxio/gnmap/pkg/mapper     (cached)
+```
+
 ## TODO
 
 [Host discovery](https://nmap.org/book/man-host-discovery.html) support
@@ -15,9 +25,10 @@ A tiny Network mapper for go learning purposes and fun!
   - [ ] ARP
 
 [Scanning techniques](https://nmap.org/book/man-port-scanning-techniques.html)
-  - [ ] TCP
+  - [x] TCP
   - [ ] UDP
 
-
+Etc
 - [ ] Multiple targets support
 - [ ] JSON Output
+- [ ] Concurrency support
