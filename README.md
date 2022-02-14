@@ -6,6 +6,10 @@ A tiny Network mapper for go learning purposes and fun!
 - The project is aimed for golang learning purposes
 - My initial idea is to support a couple of host discovery/port scanning techniques (See [TODO](#TODO))
 
+## Requirements
+
+- Go >= 1.17
+
 ## Tests
 
 ```bash
