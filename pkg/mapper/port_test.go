@@ -8,6 +8,16 @@ import (
 	"time"
 )
 
+func TestPortStringer(t *testing.T) {
+	port := NewPort("tcp", 80)
+	expected := "80/tcp -- unknown"
+
+	got := port.String()
+	if got != expected {
+		t.Errorf("got %s, want %s", got, expected)
+	}
+}
+
 func TestScan(t *testing.T) {
 	checkPort := func(t testing.TB, port *Port, want string) {
 		t.Helper()
@@ -29,7 +39,6 @@ func TestScan(t *testing.T) {
 		port := NewPort("tcp", 8183)
 		server := fakeServer(port)
 		defer server.Close()
-
 		localhost := net.IP{127, 0, 0, 1}
 
 		port.Scan(localhost)
@@ -43,16 +52,6 @@ func TestScan(t *testing.T) {
 		port.scanWithTimeout(localhost, 1*time.Nanosecond)
 		checkPort(t, port, "filtered")
 	})
-}
-
-func TestStringer(t *testing.T) {
-	port := NewPort("tcp", 80)
-	expected := "80/tcp -- unknown"
-
-	got := port.String()
-	if got != expected {
-		t.Errorf("got %s, want %s", got, expected)
-	}
 }
 
 func fakeServer(port *Port) net.Listener {

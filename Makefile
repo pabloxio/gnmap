@@ -9,7 +9,7 @@ $(BIN_DIR)/gnmap: $(GOSOURCES)
 	@go build -o $(BIN_DIR)/gnmap
 
 test:
-	go test ./...
+	go test -cover ./...
 
 GITIGNORE ?= go
 gitignore:
