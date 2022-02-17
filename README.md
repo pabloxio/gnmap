@@ -1,10 +1,6 @@
 # gNmap (go Network Mapper)
 
-A tiny Network mapper for go learning purposes and fun!
-
-- It's obviously inspired in Nmap, but it's not going to be 100% compatible
-- The project is aimed for golang learning purposes
-- My initial idea is to support a couple of host discovery/port scanning techniques (See [TODO](#TODO))
+A tiny Network mapper for go learning purposes and fun! It's obviously inspired by [Nmap](https://nmap.org/). My original goal is only to support a couple of host discovery and port scanning techniques (See [TODO](#TODO))
 
 ## Requirements
 
@@ -14,10 +10,10 @@ A tiny Network mapper for go learning purposes and fun!
 
 ```bash
 make test
-go test ./...
+go test -cover ./...
 ?       github.io/pabloxio/gnmap        [no test files]
 ?       github.io/pabloxio/gnmap/cmd    [no test files]
-ok      github.io/pabloxio/gnmap/pkg/mapper     (cached)
+ok      github.io/pabloxio/gnmap/pkg/mapper     (cached)        coverage: 91.4% of statements
 ```
 
 ## TODO

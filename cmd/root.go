@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
+	"github.io/pabloxio/gnmap/pkg/mapper"
 )
 
 var (
@@ -36,7 +37,8 @@ func rootHandler(cmd *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 
-	fmt.Printf("Running %s scanning [WIP]\n", scan)
-	fmt.Printf("ips: %v\n", ips)
-	fmt.Printf("ports: %v\n", ports)
+	m := mapper.New(scan, ips, ports)
+	m.Run()
+
+	fmt.Println(m)
 }
