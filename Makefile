@@ -4,7 +4,7 @@ build: $(BIN_DIR) $(BIN_DIR)/gnmap
 $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)
 
-GOSOURCES = $(wildcard *.go cmd/*.go pkg/**/*.go) Makefile
+GOSOURCES = $(wildcard *.go cmd/*.go pkg/**/*.go pkg/**/*.tmpl) Makefile
 $(BIN_DIR)/gnmap: $(GOSOURCES)
 	@go build -o $(BIN_DIR)/gnmap
 

@@ -15,6 +15,9 @@ func TestMapperRun(t *testing.T) {
 		{port: NewPort("tcp", 2385), want: "closed"},
 		{port: NewPort("tcp", 2392), want: "open"},
 		{port: NewPort("tcp", 2400), want: "open"},
+		{port: NewPort("tcp", 5508), want: "closed"},
+		{port: NewPort("tcp", 8765), want: "closed"},
+		{port: NewPort("tcp", 2394), want: "open"},
 	}
 
 	portNumbers := make([]int, 0)

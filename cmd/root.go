@@ -15,8 +15,8 @@ var (
 	ips   []net.IP
 
 	rootCmd = &cobra.Command{
-		Short: "go Network Mapper.",
-		Long:  `go Network Mapper (for personal learning purposes).`,
+		Short: "go Network Mapper",
+		Long:  `go Network Mapper`,
 		Run:   rootHandler,
 	}
 )

@@ -15,29 +15,29 @@ var mapperTemplate string
 
 // Mapper handles scanning for multiple Hosts/Ports
 type Mapper struct {
-	Network   string
-	Hosts     []*Host
-	Ports     []int
-	StartTime time.Time
+	Network     string
+	Hosts       []*Host
+	PortNumbers []int
+	StartTime   time.Time
 }
 
-func New(network string, ips []net.IP, ports []int) *Mapper {
+func New(network string, ips []net.IP, portNumbers []int) *Mapper {
 	hosts := make([]*Host, len(ips))
 	for i, ip := range ips {
 		hosts[i] = NewHost(ip)
 	}
 
 	return &Mapper{
-		Network:   network,
-		Hosts:     hosts,
-		Ports:     ports,
-		StartTime: time.Now(),
+		Network:     network,
+		Hosts:       hosts,
+		PortNumbers: portNumbers,
+		StartTime:   time.Now(),
 	}
 }
 
 func (m *Mapper) Run() {
 	for _, host := range m.Hosts {
-		host.Run(m.Network, m.Ports)
+		host.Run(m.Network, m.PortNumbers)
 	}
 }
 

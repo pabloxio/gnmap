@@ -4,6 +4,5 @@ scan report for {{ . }}
 
 PORT -- STATE {{ range .Ports }}
 {{ . }} {{ end }}
-MAC Address: XYZ [WIP]
 {{ end }}
 gNmap done: {{ len .Hosts }} IP addresses scanned in {{ since .StartTime }}
