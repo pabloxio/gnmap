@@ -28,7 +28,9 @@ func (p *Port) Scan(ip net.IP) {
 func (p *Port) scanWithTimeout(ip net.IP, timeout time.Duration) {
 	addr := net.TCPAddr{IP: ip, Port: p.Number}
 
-	conn, err := net.DialTimeout(p.Network, addr.String(), timeout)
+	d := net.Dialer{Timeout: timeout}
+	conn, err := d.Dial(p.Network, addr.String())
+
 	if err != nil {
 		switch t := err.(type) {
 		case *net.OpError:
@@ -38,6 +40,10 @@ func (p *Port) scanWithTimeout(ip net.IP, timeout time.Duration) {
 			if strings.Contains(t.Error(), "connection refused") {
 				p.State = "closed"
 			}
+			// WIP
+			// if strings.Contains(t.Error(), "host is down") {
+			// 	p.State = "WIP"
+			// }
 		default:
 			p.State = err.Error()
 		}
