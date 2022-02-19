@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"sync"
 	"text/template"
 	"time"
 )
@@ -15,26 +16,43 @@ var mapperTemplate string
 
 // Mapper handles scanning for multiple Hosts/Ports
 type Mapper struct {
-	Hosts          []*Host
-	tcpPortNumbers []int
-	StartTime      time.Time
+	StartTime       time.Time
+	Hosts           []*Host
+	tcpPortNumbers  []int
+	concurrentHosts int
 }
 
-func New(ips []net.IP, tcpPortNumbers []int) *Mapper {
+func New(ips []net.IP, tcpPortNumbers []int, concurrentHosts int) *Mapper {
 	hosts := make([]*Host, len(ips))
 	for i, ip := range ips {
 		hosts[i] = NewHost(ip)
 	}
 
-	return &Mapper{Hosts: hosts, tcpPortNumbers: tcpPortNumbers}
+	return &Mapper{
+		StartTime:       time.Now(),
+		Hosts:           hosts,
+		tcpPortNumbers:  tcpPortNumbers,
+		concurrentHosts: concurrentHosts,
+	}
 }
 
 func (m *Mapper) Run() {
-	m.StartTime = time.Now()
+	var wg sync.WaitGroup
 
-	for _, host := range m.Hosts {
-		host.Run("tcp", m.tcpPortNumbers)
+	// Creating hostWorkers based on m.concurrentHosts
+	hostRunChannel := make(chan hostRunConfig, m.concurrentHosts) //buffered
+	for i := 0; i < m.concurrentHosts; i++ {
+		wg.Add(1)
+		go hostWorker(&wg, hostRunChannel)
 	}
+
+	// Sending host
+	for _, host := range m.Hosts {
+		hostRunChannel <- hostRunConfig{host, "tcp", m.tcpPortNumbers}
+	}
+
+	close(hostRunChannel)
+	wg.Wait()
 }
 
 func (m *Mapper) String() string {

@@ -31,7 +31,7 @@ func TestMapperRun(t *testing.T) {
 	}
 
 	localhost := net.IP{127, 0, 0, 1}
-	m := New([]net.IP{localhost}, portNumbers)
+	m := New([]net.IP{localhost}, portNumbers, 1)
 
 	m.Run()
 

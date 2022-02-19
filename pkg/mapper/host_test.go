@@ -48,6 +48,7 @@ func TestHostRun(t *testing.T) {
 	}
 
 	host.Run("tcp", portNumbers)
+
 	for i, port := range host.Ports {
 		if port.State != tests[i].want {
 			t.Errorf("got %s/%d %s, but want %s", port.Network, port.Number, port.State, tests[i].want)
